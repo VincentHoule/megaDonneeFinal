@@ -1,0 +1,13 @@
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/categories.csv" AS csvLine CREATE 
+(c:categorie {id: toInteger(csvLine.id), titre: csvLine.titre});
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/chaines%20(1).csv" AS csvLine CREATE 
+(ch:chaine{id: toInteger(csvLine.id), identifiantUnique: csvLine.identifiantUnique, titre: csvLine.titre, pays: csvLine.pays, nombreVues: toInteger(csvLine.nombreVues), nombreAbonnes: toInteger(csvLine.nombreAbonnes), nombreAbonnes: toInteger(csvLine.nombreAbonnes),
+statuConfidentialite: csvLine.statuConfidentialite});
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/etiquettes.csv" AS csvLine CREATE 
+(e:etiquette {id: toInteger(csvLine.id), nom: csvLine.nom});
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/videos.csv" AS csvLine CREATE 
+(v:video {id: toInteger(csvLine.id), identifiantUnique: csvLine.identifiantUnique, publication : csvLine.publication, titre: csvLine.titre, identifiantChaine: csvLine.identifiantChaine, identifiantCategorie: toInteger(csvLine.identifiantCategorie),
+langueParDefaut: csvLine.langueParDefaut, dureeEnSecondes: toInteger(csvLine.dureeEnSecondes), statutTelechargement: csvLine.statutTelechargement, statuConfidentialite: csvLine.statuConfidentialite, 
+nombreFavoris: toInteger(csvLine.nombreFavoris), nombreVues: toInteger(csvLine.nombreVues), nombreJaime: toInteger(csvLine.nombreJaime), nombreFavoris: toInteger(csvLine.nombreFavoris)});
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/video_etiquettes.csv" AS csvLine MATCH
+(video:video {id: toInteger(csvLine.video_id)}, (etiquette:etiquette {id: toInteger(csvLine.etiquette_id)}) CREATE (video)-[:POSSEDE]->(etiquette));
