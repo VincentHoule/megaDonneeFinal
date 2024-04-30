@@ -8,6 +8,6 @@ LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/m
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/videos.csv" AS csvLine CREATE 
 (v:video {id: toInteger(csvLine.id), identifiantUnique: csvLine.identifiantUnique, publication : csvLine.publication, titre: csvLine.titre, identifiantChaine: csvLine.identifiantChaine, identifiantCategorie: toInteger(csvLine.identifiantCategorie),
 langueParDefaut: csvLine.langueParDefaut, dureeEnSecondes: toInteger(csvLine.dureeEnSecondes), statutTelechargement: csvLine.statutTelechargement, statuConfidentialite: csvLine.statuConfidentialite, 
-nombreFavoris: toInteger(csvLine.nombreFavoris), nombreVues: toInteger(csvLine.nombreVues), nombreJaime: toInteger(csvLine.nombreJaime), nombreFavoris: toInteger(csvLine.nombreFavoris)});
+nombreFavoris: toInteger(csvLine.nombreFavoris), nombreVues: toInteger(csvLine.nombreVues), nombreJaime: toInteger(csvLine.nombreJaime), nombreFavoris: toInteger(csvLine.nombreFavoris), actif: toInteger(csvLine.actif)});
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/VincentHoule/megaDonneeFinal/main/video_etiquettes.csv" AS csvLine MATCH
-(video:video {id: toInteger(csvLine.video_id)}, (etiquette:etiquette {id: toInteger(csvLine.etiquette_id)}) CREATE (video)-[:POSSEDE]->(etiquette));
+(video:video {id: toInteger(csvLine.video_id)}), (etiquette:etiquette {id: toInteger(csvLine.etiquette_id)}) CREATE (video)-[:POSSEDE]->(etiquette);
